@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 270 50% 98%;
+    --foreground: 270 30% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 270 30% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 30% 25%;
+    --primary: 45 95% 53%;
+    --primary-foreground: 270 30% 25%;
+    --secondary: 270 50% 95%;
+    --secondary-foreground: 270 30% 35%;
+    --muted: 270 50% 97%;
+    --muted-foreground: 270 30% 55%;
+    --accent: 270 50% 90%;
+    --accent-foreground: 270 30% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 270 50% 90%;
+    --input: 270 50% 90%;
+    --ring: 45 95% 53%;
+    --chart-1: 45 95% 53%;
+    --chart-2: 270 50% 60%;
+    --chart-3: 270 50% 70%;
+    --chart-4: 45 95% 70%;
+    --chart-5: 270 50% 80%;
+    --radius: 0.5rem;
+    --sidebar-background: 270 50% 97%;
+    --sidebar-foreground: 270 30% 25%;
+    --sidebar-primary: 45 95% 53%;
+    --sidebar-primary-foreground: 270 30% 25%;
+    --sidebar-accent: 270 50% 92%;
+    --sidebar-accent-foreground: 270 30% 20%;
+    --sidebar-border: 270 50% 90%;
+    --sidebar-ring: 45 95% 53%;
+    --header-background: 270 40% 96%;
+    --header-foreground: 270 30% 25%;
+    --footer-background: 270 40% 96%;
+    --footer-foreground: 270 30% 25%;
+  }
+  .dark {
+    --background: 270 15% 15%;
+    --foreground: 270 20% 90%;
+    --card: 270 15% 18%;
+    --card-foreground: 270 20% 90%;
+    --popover: 270 15% 18%;
+    --popover-foreground: 270 20% 90%;
+    --primary: 45 95% 53%;
+    --primary-foreground: 270 30% 25%;
+    --secondary: 270 15% 25%;
+    --secondary-foreground: 270 20% 90%;
+    --muted: 270 15% 22%;
+    --muted-foreground: 270 20% 70%;
+    --accent: 270 20% 30%;
+    --accent-foreground: 270 20% 95%;
+    --destructive: 0 63% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 270 15% 30%;
+    --input: 270 15% 30%;
+    --ring: 45 95% 53%;
+    --chart-1: 45 95% 53%;
+    --chart-2: 270 40% 60%;
+    --chart-3: 270 40% 50%;
+    --chart-4: 45 85% 60%;
+    --chart-5: 270 40% 70%;
+    --sidebar-background: 270 15% 12%;
+    --sidebar-foreground: 270 20% 90%;
+    --sidebar-primary: 45 95% 53%;
+    --sidebar-primary-foreground: 270 30% 25%;
+    --sidebar-accent: 270 20% 30%;
+    --sidebar-accent-foreground: 270 20% 95%;
+    --sidebar-border: 270 15% 30%;
+    --sidebar-ring: 45 95% 53%;
+    --header-background: 270 15% 12%;
+    --header-foreground: 270 20% 90%;
+    --footer-background: 270 15% 12%;
+    --footer-foreground: 270 20% 90%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .chat-message-in {
+    animation: fadeInSlideUp 0.4s ease-out forwards;
+  }
+}
