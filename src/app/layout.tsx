@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <div className="relative flex min-h-screen flex-col">
-          <Header />
+           {!isChatPage && <Header />}
           <main className="flex-1">{children}</main>
           {!isChatPage && <Footer />}
         </div>

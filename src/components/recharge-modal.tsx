@@ -36,7 +36,7 @@ export function RechargeModal({ isOpen, onClose, astrologer }: RechargeModalProp
   
   const handleProceedToPay = () => {
     onClose();
-    router.push('/wallet');
+    router.push(`/wallet?amount=${selectedAmount}`);
   }
 
   return (
@@ -67,7 +67,7 @@ export function RechargeModal({ isOpen, onClose, astrologer }: RechargeModalProp
                                 "w-full border rounded-lg p-3 mt-2 text-center transition-colors h-full flex items-center justify-center font-semibold text-card-foreground",
                                 selectedAmount === option.amount 
                                     ? 'border-yellow-400 bg-yellow-400/20'
-                                    : 'border-border bg-card hover:border-yellow-400/50 '
+                                    : 'border-border bg-card hover:border-yellow-400/50'
                             )}
                         >
                            ₹{option.amount}
