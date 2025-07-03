@@ -1,12 +1,12 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import { getHoroscopeAction, type FormState } from '@/app/horoscope/actions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import { useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles } from 'lucide-react';
 
@@ -32,7 +32,7 @@ const initialState: FormState = {
 };
 
 export function HoroscopeForm() {
-  const [state, formAction] = useFormState(getHoroscopeAction, initialState);
+  const [state, formAction] = useActionState(getHoroscopeAction, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 

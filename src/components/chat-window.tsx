@@ -19,21 +19,42 @@ interface ChatWindowProps {
 export function ChatWindow({ astrologer }: ChatWindowProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [newMessage, setNewMessage] = useState('');
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(120); // Start from 2 minutes (120 seconds)
   const [isThinking, setIsThinking] = useState(false);
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => prev + 1);
+    timerIntervalRef.current = setInterval(() => {
+      setTimer((prev) => {
+        if (prev > 0) {
+          return prev - 1;
+        }
+        if (timerIntervalRef.current) {
+          clearInterval(timerIntervalRef.current);
+        }
+        return 0;
+      });
     }, 1000);
-    return () => clearInterval(interval);
+
+    return () => {
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
+    if (timer === 0) {
+      setShowRechargeModal(true);
+    }
+  }, [timer]);
+
+
+  useEffect(() => {
     if (scrollAreaRef.current) {
-      const viewport = scrollAreaRef.current.querySelector('div');
+      const viewport = scrollAreaRef.current.querySelector('div[data-radix-scroll-area-viewport]');
       if (viewport) {
         viewport.scrollTop = viewport.scrollHeight;
       }
@@ -52,7 +73,7 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (timer >= 120) {
+    if (timer <= 0) {
       setShowRechargeModal(true);
       return;
     }
@@ -101,7 +122,7 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-5.5rem)] bg-card">
+    <div className="flex flex-col h-full bg-card">
        <RechargeModal 
         isOpen={showRechargeModal}
         onClose={() => setShowRechargeModal(false)}
@@ -114,7 +135,7 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
         </Avatar>
         <div className="flex-grow min-w-0">
           <h2 className="font-bold text-base sm:text-lg font-headline truncate">{astrologer.name}</h2>
-          <div className="text-xs sm:text-sm text-green-500">Online</div>
+          <div className="text-xs sm:text-sm text-primary">Online</div>
         </div>
         <div className="text-center px-2 shrink-0">
           <div className="font-mono text-base sm:text-lg">{formatTime(timer)}</div>
@@ -134,7 +155,7 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
         </div>
       </header>
 
-      <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
+      <ScrollArea className="flex-grow p-4 relative chat-scroll-area" ref={scrollAreaRef}>
         <div className="space-y-4">
           {messages.map((message) => (
             <div
@@ -154,8 +175,8 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
                 className={cn(
                   'max-w-[85%] md:max-w-md rounded-lg px-3 py-2 sm:px-4',
                   message.sender === 'user'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-secondary'
+                    ? 'bg-primary/20 text-card-foreground'
+                    : 'bg-card border'
                 )}
               >
                 <p className="text-sm break-words">{message.text}</p>
@@ -169,12 +190,12 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
                 <AvatarImage src={astrologer.avatar} alt={astrologer.name} />
                 <AvatarFallback>{astrologer.name.charAt(0)}</AvatarFallback>
               </Avatar>
-              <div className="bg-secondary rounded-lg px-4 py-2 flex items-center">
+              <div className="bg-card border rounded-lg px-4 py-2 flex items-center">
                   <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             </div>
           )}
-          {timer >= 120 && (
+          {timer === 0 && (
              <div className="text-center my-4">
                 <p className="text-sm text-destructive bg-destructive/10 p-2 rounded-md">Your 2 minutes of free chat have ended.</p>
              </div>
@@ -189,9 +210,9 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
             autoComplete="off"
-            disabled={isThinking}
+            disabled={isThinking || timer === 0}
           />
-          <Button type="submit" disabled={isThinking}>
+          <Button type="submit" disabled={isThinking || timer === 0}>
             {isThinking ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             <span className="sr-only">Send</span>
           </Button>

@@ -36,7 +36,7 @@ export function RechargeModal({ isOpen, onClose, astrologer }: RechargeModalProp
   
   const handleProceedToPay = () => {
     onClose();
-    router.push('/wallet');
+    router.push(`/wallet?amount=${selectedAmount}`);
   }
 
   return (
@@ -48,13 +48,14 @@ export function RechargeModal({ isOpen, onClose, astrologer }: RechargeModalProp
                     Minimum balance of 5 minutes (₹ {minimumBalance}) is required to continue chat with {astrologer.name}.
                 </p>
                 <button onClick={onClose} className="p-1 rounded-full hover:bg-muted -mt-2 -mr-2">
+                    <X className="h-4 w-4" />
                     <span className="sr-only">Close</span>
                 </button>
             </div>
 
             <h3 className="font-bold text-lg text-card-foreground">Recharge Now</h3>
-            <div className="flex items-center gap-2 bg-yellow-100/50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs p-2 rounded-md">
-                <Lightbulb className="h-4 w-4 text-yellow-500 shrink-0"/>
+            <div className="flex items-center gap-2 bg-primary/10 text-primary text-xs p-2 rounded-md">
+                <Lightbulb className="h-4 w-4 shrink-0"/>
                 <p>Tip: 90% of users recharge for 10 mins or more.</p>
             </div>
 
@@ -64,21 +65,21 @@ export function RechargeModal({ isOpen, onClose, astrologer }: RechargeModalProp
                         <button 
                             onClick={() => setSelectedAmount(option.amount)}
                             className={cn(
-                                "w-full border rounded-lg p-3 mt-2 text-center transition-colors h-full flex items-center justify-center font-semibold text-card-foreground",
+                                "w-full border rounded-lg p-3 text-center transition-colors h-full flex items-center justify-center font-semibold text-card-foreground",
                                 selectedAmount === option.amount 
-                                    ? 'border-yellow-400 bg-yellow-400/20'
-                                    : 'border-border bg-card hover:border-yellow-400/50 '
+                                    ? 'border-primary bg-primary/20'
+                                    : 'border-border bg-card hover:border-primary/50'
                             )}
                         >
                            ₹{option.amount}
                         </button>
-                         <div className="absolute top-0 left-0 text-[10px] bg-green-600 text-white px-1 py-0.5 rounded-tl-lg rounded-br-lg">
+                         <div className="absolute top-0 left-0 text-[10px] bg-primary text-primary-foreground px-1 py-0.5 rounded-tl-lg rounded-br-lg">
                             {option.extra}
                         </div>
                     </div>
                 ))}
             </div>
-             <Button onClick={handleProceedToPay} className="w-full h-11 text-lg bg-yellow-400 hover:bg-yellow-500 text-black font-bold">
+             <Button onClick={handleProceedToPay} className="w-full h-11 text-lg font-bold">
                 Proceed to Pay
             </Button>
         </div>

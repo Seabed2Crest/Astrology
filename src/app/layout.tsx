@@ -1,19 +1,21 @@
-'use client';
-
+import type { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Toaster } from '@/components/ui/toaster';
 import { Footer } from '@/components/layout/footer';
-import { usePathname } from 'next/navigation';
+import { CartProvider } from '@/hooks/use-cart';
+
+export const metadata: Metadata = {
+  title: 'Seabed2Crest Astrotalk',
+  description:
+    'From the depths of the sea to the crest of the mountains, find your destiny.',
+};
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-  const isChatPage = pathname.startsWith('/chat/'); // adjust if route is different
-
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -24,17 +26,19 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Philosopher:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="font-body antialiased">
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          {!isChatPage && <Footer />}
-        </div>
-        <Toaster />
+        <CartProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <Toaster />
+        </CartProvider>
       </body>
     </html>
   );

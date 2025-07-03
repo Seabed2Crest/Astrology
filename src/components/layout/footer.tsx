@@ -26,11 +26,14 @@ export function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4 uppercase tracking-wider">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
+             <ul className="space-y-2 text-sm">
               <li><Link href="/astrologers" className="text-footer-foreground/80 hover:text-primary transition-colors">Talk to an Astrologer</Link></li>
               <li><Link href="/horoscope" className="text-footer-foreground/80 hover:text-primary transition-colors">Daily Horoscope</Link></li>
+              <li><Link href="/astro-shop" className="text-footer-foreground/80 hover:text-primary transition-colors">Astro Shop</Link></li>
+              <li><Link href="/tools" className="text-footer-foreground/80 hover:text-primary transition-colors">Astrology Tools</Link></li>
               <li><Link href="/wallet" className="text-footer-foreground/80 hover:text-primary transition-colors">Wallet</Link></li>
               <li><Link href="/referral" className="text-footer-foreground/80 hover:text-primary transition-colors">Refer a Friend</Link></li>
+              <li><Link href="/karma-points" className="text-footer-foreground/80 hover:text-primary transition-colors">Karma Points</Link></li>
             </ul>
           </div>
 
