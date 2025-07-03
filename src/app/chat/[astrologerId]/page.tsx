@@ -10,7 +10,7 @@ export default function ChatPage({ params }: { params: { astrologerId: string } 
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <ChatWindow astrologer={astrologer} />
     </div>
   );
