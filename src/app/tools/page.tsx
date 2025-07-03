@@ -16,6 +16,7 @@ import {
   Orbit,
   Flame,
   Car,
+  HeartHandshake,
 } from 'lucide-react';
 import {
   Card,
@@ -27,6 +28,27 @@ import {
 import Link from 'next/link';
 
 const tools = [
+  {
+    title: 'Zodiac Horoscopes',
+    description: 'Get daily, weekly, and monthly insights for all 12 zodiac signs.',
+    link: '/horoscope',
+    icon: Sparkles,
+    status: 'live',
+  },
+  {
+    title: 'Personal Daily Horoscope',
+    description: 'Get your personalized daily insights based on your birth chart.',
+    link: '/tools/daily-horoscope',
+    icon: Star,
+    status: 'live',
+  },
+  {
+    title: 'Kundli Matching',
+    description: 'Check marriage compatibility with Vedic Kundli Milan.',
+    link: '/tools/kundli-matching',
+    icon: HeartHandshake,
+    status: 'live',
+  },
   // Live
   {
     title: 'Age Calculator',
@@ -115,7 +137,7 @@ const tools = [
   {
     title: 'Kundli / Birth Chart',
     description: 'Generate your detailed birth chart or Kundli.',
-    link: '/tools/kundli',
+    link: '/kundli',
     icon: Orbit,
     status: 'live',
   },
