@@ -8,12 +8,15 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/lib/icons';
 import { useState } from 'react';
+import { CartIcon } from '@/components/cart-icon';
 
 const navLinks = [
   { href: '/', label: 'Dashboard' },
   { href: '/astrologers', label: 'Talk to Astrologer' },
-  { href: '/horoscope', label: 'Daily Horoscope' },
-  { href: '/wallet', label: 'Wallet' },
+  { href: '/horoscope', label: 'Horoscope' },
+  { href: '/astro-shop', label: 'Astro Shop' },
+  { href: '/tools', label: 'Calculators' },
+    { href: '/wallet', label: 'Wallet' },
   { href: '/referral', label: 'Referrals' },
 ];
 
@@ -22,7 +25,7 @@ export function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
 
   return (
-<header className="sticky top-0 z-50 pl-6 pr-6 pt-1 pb-1 md:pt-2 md:pb-2 w-full border-b bg-[#042338] text-white backdrop-blur supports-[backdrop-filter]:bg-[#042338]">
+ <header className="sticky top-0 z-50 pl-6 pr-6 pt-1 pb-1 md:pt-2 md:pb-2 w-full border-b bg-[#042338] text-white backdrop-blur supports-[backdrop-filter]:bg-[#042338]">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 hidden md:flex">
         <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -35,7 +38,6 @@ export function Header() {
     Seabed2Crest Astrotalk
   </span>
 </Link>
-
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navLinks.map((link) => (
               <Link
@@ -56,14 +58,12 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="md:hidden">
-            <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+                <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
            <Button variant="ghost" size="icon">
   <Menu style={{ width: "24px", height: "24px" }} className="text-2xl" />
   <span className="sr-only">Open Menu</span>
 </Button>
-
-
               </SheetTrigger>
               <SheetContent side="left" className="pr-0">
                 <Link href="/" className="flex items-center space-x-2 mb-6" onClick={() => setSheetOpen(false)}>
@@ -78,7 +78,7 @@ export function Header() {
                       onClick={() => setSheetOpen(false)}
                       className={cn(
                         'transition-colors hover:text-primary',
-                        pathname === link.href
+                         pathname.startsWith(link.href) && link.href !== '/' || pathname === link.href
                           ? 'text-primary'
                           : 'text-muted-foreground'
                       )}
@@ -86,6 +86,18 @@ export function Header() {
                       {link.label}
                     </Link>
                   ))}
+                   <Link
+                      href='/wallet'
+                      onClick={() => setSheetOpen(false)}
+                      className={cn(
+                        'transition-colors hover:text-primary',
+                         pathname.startsWith('/wallet')
+                          ? 'text-primary'
+                          : 'text-muted-foreground'
+                      )}
+                    >
+                      Wallet
+                    </Link>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -94,7 +106,8 @@ export function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* Can add search here later */}
           </div>
-          <nav className="flex items-center">
+          <nav className="flex items-center gap-2">
+            <CartIcon />
             <Link href="/login">
               <Button>Login</Button>
             </Link>

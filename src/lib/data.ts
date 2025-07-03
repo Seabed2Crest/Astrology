@@ -1,4 +1,5 @@
-import type { Astrologer, Transaction, ChatMessage } from './types';
+
+import type { Astrologer, Transaction, ChatMessage, Product, KarmaTransaction, LiveSession } from './types';
 
 export const astrologers: Astrologer[] = [
   {
@@ -116,3 +117,128 @@ export const transactions: Transaction[] = [
 ];
 
 export const chatMessages: ChatMessage[] = [];
+
+export const products: Product[] = [
+  {
+    id: 'prod-001',
+    name: '7 Chakra Healing Bracelet',
+    category: 'Bracelets',
+    purpose: ['Healing', 'Protection'],
+    price: 899,
+    originalPrice: 1299,
+    images: ['/c1.webp', '/c2.webp', '/c3.webp'],
+    description: 'A beautiful bracelet made with 7 different healing crystals, designed to balance your chakras and promote well-being. Each stone corresponds to a specific chakra.',
+    benefits: ['Balances all seven chakras', 'Promotes emotional stability', 'Enhances mental clarity and focus', 'Brings a sense of peace and harmony'],
+    howToWear: 'Wear on your left wrist to receive its healing energy. Cleanse once a week by placing it under moonlight or with sage smoke.',
+    rating: 4.8,
+    reviews: 256,
+  },
+  {
+    id: 'prod-002',
+    name: 'Shree Yantra',
+    category: 'Yantras',
+    purpose: ['Money Magnet'],
+    price: 1499,
+    originalPrice: 1999,
+    images: ['/c2.webp'],
+    description: 'The Shree Yantra is one of the most powerful and auspicious yantras. It is a source of attaining all worldly desires & fulfilling all wishes through cosmic power.',
+    benefits: ['Attracts wealth and prosperity', 'Helps in clearing financial blockages', 'Brings success in business and career', 'Promotes a positive flow of energy'],
+    howToWear: 'Place in your home or office in the North-East direction. Worship it daily for best results.',
+    rating: 4.9,
+    reviews: 412,
+  },
+  {
+    id: 'prod-003',
+    name: 'Rose Quartz Love Pendant',
+    category: 'Pendants',
+    purpose: ['Love'],
+    price: 799,
+    images: ['/c5.webp'],
+    description: 'A stunning pendant made from genuine Rose Quartz, the stone of unconditional love. It helps open the heart to give and receive love.',
+    benefits: ['Attracts romantic love', 'Strengthens existing relationships', 'Promotes self-love and acceptance', 'Heals emotional wounds'],
+    howToWear: 'Wear it close to your heart. Best worn on a Friday. Cleanse regularly with water.',
+    rating: 4.7,
+    reviews: 189,
+  },
+  {
+    id: 'prod-004',
+    name: 'Panchmukhi Rudraksha',
+    category: 'Rudraksha',
+    purpose: ['Protection', 'Healing'],
+    price: 599,
+    originalPrice: 899,
+    images: ['/c6.webp'],
+    description: 'An authentic 5-faced (Panchmukhi) Rudraksha bead. It represents Lord Shiva and is known for its powerful protective and healing energies.',
+    benefits: ['Provides protection from negative energies', 'Calms the mind and reduces stress', 'Improves health and well-being', 'Enhances spiritual growth'],
+    howToWear: 'Can be worn as a pendant or bracelet. It is best to wear it after getting it blessed. Avoid wearing it during sleep.',
+    rating: 4.9,
+    reviews: 512,
+  },
+    {
+    id: 'prod-005',
+    name: 'Money Magnet Pyrite Bracelet',
+    category: 'Bracelets',
+    purpose: ['Money Magnet'],
+    price: 999,
+    originalPrice: 1499,
+    images: ['/c7.webp'],
+    description: 'Attract wealth and abundance with this powerful Pyrite bracelet. Known as "Fool\'s Gold," Pyrite is a potent stone for manifestation and financial success.',
+    benefits: ['Attracts wealth and opportunities', 'Boosts confidence and willpower', 'Blocks negative energy', 'Enhances creativity and ambition'],
+    howToWear: 'Wear on your non-dominant hand to attract opportunities. Cleanse with sound or smoke, avoid water.',
+    rating: 4.8,
+    reviews: 320,
+  },
+  {
+    id: 'prod-006',
+    name: 'Amethyst Healing Gemstone',
+    category: 'Gemstones',
+    purpose: ['Healing'],
+    price: 699,
+images: ['/c3.webp'],
+    description: 'A high-quality tumbled Amethyst gemstone. Amethyst is a powerful and protective stone with a high spiritual vibration.',
+    benefits: ['Calms the mind and relieves stress', 'Enhances intuition and psychic abilities', 'Helps in overcoming addictions', 'Promotes restful sleep'],
+    howToWear: 'Keep it in your pocket, place it on your desk, or meditate with it. Can also be placed under your pillow.',
+    rating: 4.7,
+    reviews: 154,
+  },
+];
+
+export const karmaTransactions: KarmaTransaction[] = [
+    { id: 'kp1', date: '2023-11-05', description: 'Daily Login Bonus', points: 5, type: 'earned' },
+    { id: 'kp2', date: '2023-11-04', description: 'Referred a friend: friend@example.com', points: 50, type: 'earned' },
+    { id: 'kp3', date: '2023-11-04', description: 'Redeemed: ₹100 off on consultation', points: 500, type: 'spent' },
+    { id: 'kp4', date: '2023-11-03', description: 'First chat with Astro Priya', points: 20, type: 'earned' },
+    { id: 'kp5', date: '2023-11-02', description: 'Daily Login Bonus', points: 5, type: 'earned' },
+];
+
+
+
+export const liveSessions: LiveSession[] = [
+  {
+    id: 'live-1',
+    title: 'Planetary Transits & Your Career',
+    description: 'Join Astro Neha as she discusses how the current planetary movements can impact your professional life.',
+    astrologer: astrologers[0], // Astro Neha
+    status: 'live',
+    startTime: new Date().toISOString(),
+    image: '/mc2.webp'
+  },
+  {
+    id: 'live-2',
+    title: 'Understanding Vastu for Home Harmony',
+    description: 'Guru Ramesh will share tips on how to improve the energy in your home for peace and prosperity.',
+    astrologer: astrologers[1], // Guru Ramesh
+    status: 'upcoming',
+    startTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(), // 2 hours from now
+    image: '/mc3.jfif'
+  },
+  {
+    id: 'live-3',
+    title: 'Tarot Tuesday: Weekly Reading',
+    description: 'Get your weekly tarot guidance with Priya Sharma. We will explore the cards for the week ahead.',
+    astrologer: astrologers[2], // Priya Sharma
+    status: 'upcoming',
+    startTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 1 day from now
+    image: '/mc4.jfif'
+  },
+];

@@ -35,16 +35,19 @@ const otherFeatures = [
     title: 'Live Sessions',
     icon: Radio,
     description: 'Join live sessions with famous astrologers.',
+    link: '/live-sessions',
   },
   {
-    title: 'AstroShop',
+    title: 'Astro Shop',
     icon: ShoppingBag,
     description: 'Buy genuine gemstones and remedies.',
+    link: '/astro-shop',
   },
   {
     title: 'Karma Points',
     icon: Gem,
     description: 'Earn points and get exciting rewards.',
+    link: '/karma-points',
   },
 ];
 
@@ -52,10 +55,10 @@ export default function Home() {
   return (
     <div className="container mx-auto py-8 px-4 md:px-6">
       <section className="text-center mb-12">
-        <h1 className="text-2xl md:text-5xl font-bold text-primary mb-2 font-headline">
+        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-2 font-headline">
           Welcome to Seabed2Crest Astrotalk
         </h1>
-        <p className="text-[16px] md:text-lg  text-muted-foreground">
+        <p className="text-lg text-muted-foreground">
           Discover your path with guidance from the stars and trusted
           astrologers.
         </p>
@@ -84,24 +87,26 @@ export default function Home() {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 font-headline">
+        <h2 className="text-3xl font-bold text-center mb-8 font-headline">
           Explore More
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {otherFeatures.map((feature) => (
-            <Card key={feature.title} className="text-center">
-              <CardContent className="p-6">
-                <div className="flex justify-center mb-4">
-                  <div className="p-4 bg-primary/10 rounded-full">
-                    <feature.icon className="w-8 h-8 text-primary" />
-                  </div>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
+             <Link href={feature.link} key={feature.title} className="block hover:no-underline">
+                <Card className="text-center h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <CardContent className="p-6 flex flex-col items-center justify-center">
+                    <div className="flex justify-center mb-4">
+                      <div className="p-4 bg-primary/10 rounded-full">
+                        <feature.icon className="w-8 h-8 text-primary" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+            </Link>
           ))}
         </div>
       </section>
@@ -118,10 +123,10 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
           <div className="absolute bottom-0 left-0 p-8 text-white">
-            <h2 className="text-xl md:text-3xl font-bold mb-2 font-headline">
+            <h2 className="text-3xl font-bold mb-2 font-headline">
               Live Now: Vedic Astrology Secrets
             </h2>
-            <p className="mb-4 text-[14px] md:text-lg">
+            <p className="mb-4">
               Join Astro Neha as she unveils the secrets of planetary transits.
             </p>
             <Button variant="secondary">Join Live Session</Button>
