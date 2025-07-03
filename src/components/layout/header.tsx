@@ -16,7 +16,7 @@ const navLinks = [
   { href: '/horoscope', label: 'Horoscope' },
   { href: '/astro-shop', label: 'Astro Shop' },
   { href: '/tools', label: 'Calculators' },
-    { href: '/wallet', label: 'Wallet' },
+  { href: '/tools/kundli-matching', label: 'Kundli Matching' },
   { href: '/referral', label: 'Referrals' },
 ];
 
