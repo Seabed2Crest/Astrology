@@ -11,15 +11,11 @@ import { useState } from 'react';
 import { CartIcon } from '@/components/cart-icon';
 
 const navLinks = [
-  { href: '/', label: 'Dashboard' },
+ { href: '/', label: 'Dashboard' },
   { href: '/astrologers', label: 'Talk to Astrologer' },
-  { href: '/horoscope', label: 'Horoscope' },
+  { href: '/live-sessions', label: 'Live Sessions' },
   { href: '/astro-shop', label: 'Astro Shop' },
   { href: '/tools', label: 'Calculators' },
-    { href: '/tools/zodiac-compatibility', label: 'Zodiac Compatibility' },
-  { href: '/kundli-matching', label: 'Kundli Matching' },
-    { href: '/tools/face-reading', label: 'Face Reading' },
-  { href: '/referral', label: 'Referrals' },
 ];
 
 export function Header() {
