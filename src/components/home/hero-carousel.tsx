@@ -43,7 +43,7 @@ const banners = [
   {
     title: 'Check Your Zodiac Compatibility',
     description: 'Find out how well you match with your partner in love, friendship, and work with our detailed analysis.',
-    imageUrl: 'https://images.unsplash.com/photo-1567332248566-72485a54e838?q=80&w=1200&h=500&auto=format&fit=crop',
+    imageUrl: '/p5.webp',
     hint: 'love relationship',
     link: '/tools/zodiac-compatibility',
     linkText: 'Check Compatibility'

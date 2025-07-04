@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { HeroCarousel } from '@/components/home/hero-carousel';
+
 import { TrustedBySection } from '@/components/home/trusted-by-section';
 import { ReviewsSection } from '@/components/home/reviews-section';
 import {
@@ -18,6 +18,7 @@ import {
 import { astrologers } from '@/lib/data';
 import { AstrologerCard } from '@/components/astrologer-card';
 import Image from 'next/image';
+import { HeroCarousel } from '@/components/home/hero-carousel';
 
 const topServices = [
   {
