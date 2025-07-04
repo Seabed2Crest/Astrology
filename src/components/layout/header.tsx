@@ -16,7 +16,9 @@ const navLinks = [
   { href: '/horoscope', label: 'Horoscope' },
   { href: '/astro-shop', label: 'Astro Shop' },
   { href: '/tools', label: 'Calculators' },
-  { href: '/tools/kundli-matching', label: 'Kundli Matching' },
+    { href: '/tools/zodiac-compatibility', label: 'Zodiac Compatibility' },
+  { href: '/kundli-matching', label: 'Kundli Matching' },
+    { href: '/tools/face-reading', label: 'Face Reading' },
   { href: '/referral', label: 'Referrals' },
 ];
 
