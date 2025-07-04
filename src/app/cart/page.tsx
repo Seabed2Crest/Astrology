@@ -107,9 +107,11 @@ export default function CartPage() {
                 <span>Total</span>
                 <span>₹{totalAmount.toFixed(2)}</span>
               </div>
-              <Button className="w-full" size="lg">
-                Proceed to Checkout <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link href="/checkout" className="block w-full">
+                <Button className="w-full" size="lg">
+                  Proceed to Checkout <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>

@@ -17,6 +17,7 @@ import {
   Flame,
   Car,
   HeartHandshake,
+  Smile,
 } from 'lucide-react';
 import {
   Card,
@@ -139,6 +140,13 @@ const tools = [
     description: 'Generate your detailed birth chart or Kundli.',
     link: '/kundli',
     icon: Orbit,
+    status: 'live',
+  },
+   {
+    title: 'AI Face Reading',
+    description: 'Discover your personality traits from a photo of your face.',
+    link: '/tools/face-reading',
+    icon: Smile,
     status: 'live',
   },
   {

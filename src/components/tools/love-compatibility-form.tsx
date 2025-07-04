@@ -2,13 +2,14 @@
 
 import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
-import { loveCompatibilityAction, type FormState } from '@/app/tools/love-compatibility/actions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Heart } from 'lucide-react';
+import { loveCompatibilityAction } from '@/app/tools/love-compatibility/actions';
+import { FormState } from '@/app/tools/face-reading/actions';
 
 function SubmitButton() {
   const { pending } = useFormStatus();

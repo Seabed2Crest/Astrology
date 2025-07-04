@@ -13,3 +13,5 @@ import '@/ai/flows/karaka-finder.ts';
 import '@/ai/flows/sade-sati-calculator.ts';
 import '@/ai/flows/kundli-matching.ts';
 import '@/ai/flows/general-horoscope.ts';
+import '@/ai/flows/zodiac-compatibility.ts';
+import '@/ai/flows/face-reading-flow.ts';

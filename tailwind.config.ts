@@ -1,4 +1,4 @@
-import type {Config} from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 
 export default {
   darkMode: ['class'],
@@ -9,7 +9,7 @@ export default {
   ],
   theme: {
     extend: {
-       fontFamily: {
+      fontFamily: {
         body: ['Mulish', 'sans-serif'],
         headline: ['Mulish', 'sans-serif'],
         code: ['monospace'],
@@ -88,10 +88,20 @@ export default {
             height: '0',
           },
         },
+        'fadeIn': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'scaleIn': {
+          from: { transform: 'scale(0.8)', opacity: '0' },
+          to: { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'fadeIn': 'fadeIn 0.5s ease-in-out',
+        'scaleIn': 'scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
       },
     },
   },
