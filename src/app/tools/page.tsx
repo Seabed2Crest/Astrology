@@ -18,6 +18,7 @@ import {
   Car,
   HeartHandshake,
   Smile,
+  Hand,
 } from 'lucide-react';
 import {
   Card,
@@ -147,6 +148,13 @@ const tools = [
     description: 'Discover your personality traits from a photo of your face.',
     link: '/tools/face-reading',
     icon: Smile,
+    status: 'live',
+  },
+   {
+    title: 'AI Palm Reading',
+    description: 'Scan your palm to reveal the secrets hidden in your hand.',
+    link: '/tools/palm-reading',
+    icon: Hand,
     status: 'live',
   },
   {

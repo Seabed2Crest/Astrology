@@ -14,6 +14,8 @@ import {
   Gem,
   Sparkles,
   Shield,
+  Hand,
+  Hourglass,
 } from 'lucide-react';
 import { astrologers } from '@/lib/data';
 import { AstrologerCard } from '@/components/astrologer-card';
@@ -28,12 +30,26 @@ const topServices = [
     link: '/astrologers',
     icon: MessageCircle,
   },
+   {
+    title: 'Past Life Analysis',
+    description: 'Uncover the story of your past life and its lessons.',
+    link: '/tools/past-life-analysis',
+    icon: Hourglass,
+    status: 'live',
+  },
   {
     title: 'Kundli Matching',
     description:
       'Check marriage compatibility with our detailed Vedic Kundli Milan tool.',
     link: '/tools/kundli-matching',
     icon: HeartHandshake,
+  },
+  {
+    title: 'AI Palm Reading',
+    description:
+      'Uncover the secrets of your destiny hidden in your palm lines with our AI scanner.',
+    link: '/tools/palm-reading',
+    icon: Hand,
   },
   {
     title: 'AI Face Reading',
