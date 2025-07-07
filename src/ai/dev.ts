@@ -15,3 +15,5 @@ import '@/ai/flows/kundli-matching.ts';
 import '@/ai/flows/general-horoscope.ts';
 import '@/ai/flows/zodiac-compatibility.ts';
 import '@/ai/flows/face-reading-flow.ts';
+import '@/ai/flows/palm-reading-flow.ts';
+import '@/ai/flows/past-life-analysis-flow.ts';
