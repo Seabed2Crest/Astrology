@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Orbit } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -35,122 +36,124 @@ const initialState: FormState = {
 
 function ResultDisplay({ result }: { result: KundliGeneratorOutput }) {
     return (
-        <div className="mt-6 space-y-6">
-            <Card className="bg-primary/5">
-                <CardHeader>
-                    <CardTitle className="text-center text-primary font-headline">Core Details</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div className="p-2 bg-secondary rounded-lg">
-                            <p className="text-sm text-muted-foreground">Ascendant</p>
-                            <p className="font-bold text-primary">{result.ascendant}</p>
+        <ReportDisplay title="Vedic Kundli Report" fileName="kundli-report">
+            <div className="space-y-6">
+                <Card className="bg-primary/5">
+                    <CardHeader>
+                        <CardTitle className="text-center text-primary font-headline">Core Details</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div className="p-2 bg-secondary rounded-lg">
+                                <p className="text-sm text-muted-foreground">Ascendant</p>
+                                <p className="font-bold text-primary">{result.ascendant}</p>
+                            </div>
+                            <div className="p-2 bg-secondary rounded-lg">
+                                <p className="text-sm text-muted-foreground">Sun Sign</p>
+                                <p className="font-bold text-primary">{result.sunSign}</p>
+                            </div>
+                            <div className="p-2 bg-secondary rounded-lg">
+                                <p className="text-sm text-muted-foreground">Moon Sign</p>
+                                <p className="font-bold text-primary">{result.moonSign}</p>
+                            </div>
+                            <div className="p-2 bg-secondary rounded-lg">
+                                <p className="text-sm text-muted-foreground">Nakshatra</p>
+                                <p className="font-bold text-primary">{result.nakshatra}</p>
+                            </div>
                         </div>
-                        <div className="p-2 bg-secondary rounded-lg">
-                            <p className="text-sm text-muted-foreground">Sun Sign</p>
-                            <p className="font-bold text-primary">{result.sunSign}</p>
-                        </div>
-                        <div className="p-2 bg-secondary rounded-lg">
-                            <p className="text-sm text-muted-foreground">Moon Sign</p>
-                            <p className="font-bold text-primary">{result.moonSign}</p>
-                        </div>
-                        <div className="p-2 bg-secondary rounded-lg">
-                            <p className="text-sm text-muted-foreground">Nakshatra</p>
-                            <p className="font-bold text-primary">{result.nakshatra}</p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Planetary Positions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Planet</TableHead>
-                                <TableHead>Sign</TableHead>
-                                <TableHead>House</TableHead>
-                                <TableHead className="text-right">Degrees</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {result.planetaryPositions.map((p) => (
-                                <TableRow key={p.planet}>
-                                    <TableCell className="font-medium">{p.planet} {p.isRetrograde ? '(R)' : ''}</TableCell>
-                                    <TableCell>{p.sign}</TableCell>
-                                    <TableCell>{p.house}</TableCell>
-                                    <TableCell className="text-right">{p.degrees.toFixed(2)}°</TableCell>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Planetary Positions</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Planet</TableHead>
+                                    <TableHead>Sign</TableHead>
+                                    <TableHead>House</TableHead>
+                                    <TableHead className="text-right">Degrees</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
+                            </TableHeader>
+                            <TableBody>
+                                {result.planetaryPositions.map((p) => (
+                                    <TableRow key={p.planet}>
+                                        <TableCell className="font-medium">{p.planet} {p.isRetrograde ? '(R)' : ''}</TableCell>
+                                        <TableCell>{p.sign}</TableCell>
+                                        <TableCell>{p.house}</TableCell>
+                                        <TableCell className="text-right">{p.degrees.toFixed(2)}°</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>House (Bhava) Details</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>House</TableHead>
-                                <TableHead>Sign</TableHead>
-                                <TableHead>Planets</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {result.housePositions.map((h) => (
-                                <TableRow key={h.house}>
-                                    <TableCell className="font-medium">{h.house}</TableCell>
-                                    <TableCell>{h.sign}</TableCell>
-                                    <TableCell>{h.planets.join(', ') || '-'}</TableCell>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>House (Bhava) Details</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>House</TableHead>
+                                    <TableHead>Sign</TableHead>
+                                    <TableHead>Planets</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
+                            </TableHeader>
+                            <TableBody>
+                                {result.housePositions.map((h) => (
+                                    <TableRow key={h.house}>
+                                        <TableCell className="font-medium">{h.house}</TableCell>
+                                        <TableCell>{h.sign}</TableCell>
+                                        <TableCell>{h.planets.join(', ') || '-'}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Vimshottari Dasha Periods</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Dasha Lord</TableHead>
-                                <TableHead>Start Date</TableHead>
-                                <TableHead>End Date</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {result.vimshottariDasha.map((d) => (
-                                <TableRow key={d.planet}>
-                                    <TableCell className="font-medium">{d.planet}</TableCell>
-                                    <TableCell>{d.startDate}</TableCell>
-                                    <TableCell>{d.endDate}</TableCell>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Vimshottari Dasha Periods</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Dasha Lord</TableHead>
+                                    <TableHead>Start Date</TableHead>
+                                    <TableHead>End Date</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
+                            </TableHeader>
+                            <TableBody>
+                                {result.vimshottariDasha.map((d) => (
+                                    <TableRow key={d.planet}>
+                                        <TableCell className="font-medium">{d.planet}</TableCell>
+                                        <TableCell>{d.startDate}</TableCell>
+                                        <TableCell>{d.endDate}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Basic Interpretation</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.basicInterpretation}</p>
-                </CardContent>
-            </Card>
-        </div>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Basic Interpretation</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.basicInterpretation}</p>
+                    </CardContent>
+                </Card>
+            </div>
+        </ReportDisplay>
     )
 }
 

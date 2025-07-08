@@ -2,14 +2,14 @@
 
 import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
+import { loveCompatibilityAction, type LoveFormState } from '@/app/tools/love-compatibility/actions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Heart } from 'lucide-react';
-import { loveCompatibilityAction } from '@/app/tools/love-compatibility/actions';
-import { FormState } from '@/app/tools/face-reading/actions';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -28,7 +28,7 @@ function SubmitButton() {
   );
 }
 
-const initialState: FormState = {
+const initialState: LoveFormState = {
   message: '',
 };
 
@@ -69,21 +69,23 @@ export function LoveCompatibilityForm() {
         <SubmitButton />
       </form>
       {state.score !== undefined && state.names && (
-        <Card className="mt-6 bg-primary/5">
-            <CardHeader>
-                <CardTitle className="text-center text-primary font-headline">Your Result</CardTitle>
-            </CardHeader>
-          <CardContent className="p-6 text-center">
-            <p className="text-sm font-medium text-muted-foreground">Compatibility between</p>
-            <p className="text-lg font-semibold">{state.names.name1} & {state.names.name2}</p>
-            
-            <div className="my-4">
-                 <div className="text-7xl font-bold text-primary">{state.score}%</div>
-            </div>
+        <ReportDisplay title="Love Compatibility Score" fileName="love-score-report">
+            <Card className="mt-6 bg-primary/5">
+                <CardHeader>
+                    <CardTitle className="text-center text-primary font-headline">Your Result</CardTitle>
+                </CardHeader>
+              <CardContent className="p-6 text-center">
+                <p className="text-sm font-medium text-muted-foreground">Compatibility between</p>
+                <p className="text-lg font-semibold">{state.names.name1} & {state.names.name2}</p>
+                
+                <div className="my-4">
+                     <div className="text-7xl font-bold text-primary">{state.score}%</div>
+                </div>
 
-            <p className="text-muted-foreground font-medium">{getCompatibilityMessage(state.score)}</p>
-          </CardContent>
-        </Card>
+                <p className="text-muted-foreground font-medium">{getCompatibilityMessage(state.score)}</p>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

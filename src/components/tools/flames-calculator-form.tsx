@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useActionState, useEffect } from 'react';
@@ -11,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Flame, Heart, Handshake, Diamond, UserX, Users } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -70,25 +70,27 @@ export function FlamesCalculatorForm() {
         <SubmitButton />
       </form>
       {state.result && state.names && (
-        <Card className="mt-6 bg-primary/5">
-            <CardHeader>
-                <CardTitle className="text-center text-primary font-headline">Your FLAMES Result</CardTitle>
-            </CardHeader>
-          <CardContent className="p-6 text-center">
-            <p className="text-sm font-medium text-muted-foreground">Relationship between</p>
-            <p className="text-lg font-semibold">{state.names.name1} & {state.names.name2}</p>
-            
-            <div className="my-4 flex flex-col items-center gap-2">
-                 {resultIcons[state.result] && (
-                    <div className="p-4 bg-primary/10 rounded-full">
-                        {React.createElement(resultIcons[state.result], { className: "w-10 h-10 text-primary" })}
-                    </div>
-                 )}
-                 <div className="text-4xl font-bold text-primary">{state.result}</div>
-            </div>
+        <ReportDisplay title="FLAMES Game Result" fileName="flames-report">
+            <Card className="mt-6 bg-primary/5">
+                <CardHeader>
+                    <CardTitle className="text-center text-primary font-headline">Your FLAMES Result</CardTitle>
+                </CardHeader>
+              <CardContent className="p-6 text-center">
+                <p className="text-sm font-medium text-muted-foreground">Relationship between</p>
+                <p className="text-lg font-semibold">{state.names.name1} & {state.names.name2}</p>
+                
+                <div className="my-4 flex flex-col items-center gap-2">
+                     {resultIcons[state.result] && (
+                        <div className="p-4 bg-primary/10 rounded-full">
+                            {React.createElement(resultIcons[state.result], { className: "w-10 h-10 text-primary" })}
+                        </div>
+                     )}
+                     <div className="text-4xl font-bold text-primary">{state.result}</div>
+                </div>
 
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

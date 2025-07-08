@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Gem } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -70,21 +71,23 @@ export function KarakaFinderForm() {
         <SubmitButton />
       </form>
       {state.result && (
-        <Card className="mt-6 bg-primary/5">
-          <CardHeader>
-            <CardTitle className="text-center text-primary font-headline">Your Jaimini Karakas</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div className="p-4 bg-secondary rounded-lg">
-                <h4 className="font-bold text-lg text-primary">Atmakaraka: {state.result.atmakaraka}</h4>
-                <p className="text-sm text-muted-foreground mt-2">{state.result.atmakarakaDescription}</p>
-            </div>
-            <div className="p-4 bg-secondary rounded-lg">
-                <h4 className="font-bold text-lg text-primary">Darakaraka: {state.result.darakaraka}</h4>
-                <p className="text-sm text-muted-foreground mt-2">{state.result.darakarakaDescription}</p>
-            </div>
-          </CardContent>
-        </Card>
+        <ReportDisplay title="Jaimini Karakas Report" fileName="karakas-report">
+            <Card className="mt-6 bg-primary/5">
+              <CardHeader>
+                <CardTitle className="text-center text-primary font-headline">Your Jaimini Karakas</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-6">
+                <div className="p-4 bg-secondary rounded-lg">
+                    <h4 className="font-bold text-lg text-primary">Atmakaraka: {state.result.atmakaraka}</h4>
+                    <p className="text-sm text-muted-foreground mt-2">{state.result.atmakarakaDescription}</p>
+                </div>
+                <div className="p-4 bg-secondary rounded-lg">
+                    <h4 className="font-bold text-lg text-primary">Darakaraka: {state.result.darakaraka}</h4>
+                    <p className="text-sm text-muted-foreground mt-2">{state.result.darakarakaDescription}</p>
+                </div>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

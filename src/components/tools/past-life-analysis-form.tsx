@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Hourglass } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -34,29 +35,31 @@ const initialState: FormState = {
 
 function ResultDisplay({ result }: { result: PastLifeAnalysisOutput }) {
     return (
-        <div className="mt-6 space-y-6">
-            <Card className="bg-primary/5">
-                <CardHeader>
-                    <CardTitle className="text-center text-primary font-headline">Your Previous Incarnation</CardTitle>
-                    <CardDescription className="text-center">
-                        In the {result.era} in {result.location}, you were a {result.profession}.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.story}</p>
-                </CardContent>
-            </Card>
+        <ReportDisplay title="Past Life Analysis" fileName="past-life-analysis-report">
+            <div className="space-y-6">
+                <Card className="bg-primary/5">
+                    <CardHeader>
+                        <CardTitle className="text-center text-primary font-headline">Your Previous Incarnation</CardTitle>
+                        <CardDescription className="text-center">
+                            In the {result.era} in {result.location}, you were a {result.profession}.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.story}</p>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Your Karmic Lesson</CardTitle>
-                    <CardDescription>This is the primary lesson your soul is working to resolve in this lifetime.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.karmicLesson}</p>
-                </CardContent>
-            </Card>
-        </div>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Your Karmic Lesson</CardTitle>
+                        <CardDescription>This is the primary lesson your soul is working to resolve in this lifetime.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.karmicLesson}</p>
+                    </CardContent>
+                </Card>
+            </div>
+        </ReportDisplay>
     )
 }
 

@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Moon } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -70,21 +71,23 @@ export function MoonSignCalculatorForm() {
         <SubmitButton />
       </form>
       {state.result && (
-        <Card className="mt-6 bg-primary/5">
-          <CardHeader>
-            <CardTitle className="text-center text-primary font-headline">Your Moon Sign (Rashi)</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 text-center space-y-4">
-             <div className="text-center flex flex-col items-center">
-                <p className="text-6xl font-bold">{state.result.symbol}</p>
-                <p className="text-4xl font-bold mt-2">{state.result.moonSign}</p>
-                <p className="text-md font-medium text-muted-foreground mt-1">Lord: {state.result.lord}</p>
-            </div>
-            <div>
-                <p className="text-muted-foreground whitespace-pre-wrap">{state.result.description}</p>
-            </div>
-          </CardContent>
-        </Card>
+        <ReportDisplay title="Moon Sign (Rashi) Report" fileName="moon-sign-report">
+            <Card className="mt-6 bg-primary/5">
+              <CardHeader>
+                <CardTitle className="text-center text-primary font-headline">Your Moon Sign (Rashi)</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 text-center space-y-4">
+                 <div className="text-center flex flex-col items-center">
+                    <p className="text-6xl font-bold">{state.result.symbol}</p>
+                    <p className="text-4xl font-bold mt-2">{state.result.moonSign}</p>
+                    <p className="text-md font-medium text-muted-foreground mt-1">Lord: {state.result.lord}</p>
+                </div>
+                <div>
+                    <p className="text-muted-foreground whitespace-pre-wrap">{state.result.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

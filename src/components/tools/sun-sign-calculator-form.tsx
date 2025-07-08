@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sun } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -55,16 +56,18 @@ export function SunSignCalculatorForm() {
         <SubmitButton />
       </form>
       {state.zodiacInfo && (
-        <Card className="mt-6 bg-primary/5">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4 text-primary font-headline text-center">Your Sun Sign Is</h3>
-            <div className="text-center flex flex-col items-center">
-                <p className="text-6xl font-bold">{state.zodiacInfo.symbol}</p>
-                <p className="text-4xl font-bold mt-2">{state.zodiacInfo.sign}</p>
-                <p className="text-md font-medium text-muted-foreground mt-1">{state.zodiacInfo.dateRange}</p>
-            </div>
-          </CardContent>
-        </Card>
+        <ReportDisplay title="Sun Sign Report" fileName="sun-sign-report">
+            <Card className="mt-6 bg-primary/5">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-4 text-primary font-headline text-center">Your Sun Sign Is</h3>
+                <div className="text-center flex flex-col items-center">
+                    <p className="text-6xl font-bold">{state.zodiacInfo.symbol}</p>
+                    <p className="text-4xl font-bold mt-2">{state.zodiacInfo.sign}</p>
+                    <p className="text-md font-medium text-muted-foreground mt-1">{state.zodiacInfo.dateRange}</p>
+                </div>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

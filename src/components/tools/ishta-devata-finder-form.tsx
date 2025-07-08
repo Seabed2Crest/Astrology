@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -70,26 +71,28 @@ export function IshtaDevataFinderForm() {
         <SubmitButton />
       </form>
       {state.result && (
-        <Card className="mt-6 bg-primary/5">
-          <CardHeader>
-            <CardTitle className="text-center text-primary font-headline">Your Guiding Deity</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div className="p-3 bg-secondary rounded-lg">
-                  <p className="text-sm text-muted-foreground">Atmakaraka</p>
-                  <p className="text-xl font-bold text-primary">{state.result.atmakaraka}</p>
-              </div>
-               <div className="p-3 bg-secondary rounded-lg">
-                  <p className="text-sm text-muted-foreground">Ishta Devata</p>
-                  <p className="text-xl font-bold text-primary">{state.result.ishtaDevata}</p>
-              </div>
-            </div>
-            <div>
-              <p className="text-muted-foreground whitespace-pre-wrap">{state.result.description}</p>
-            </div>
-          </CardContent>
-        </Card>
+        <ReportDisplay title="Ishta Devata Report" fileName="ishta-devata-report">
+            <Card className="mt-6 bg-primary/5">
+              <CardHeader>
+                <CardTitle className="text-center text-primary font-headline">Your Guiding Deity</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  <div className="p-3 bg-secondary rounded-lg">
+                      <p className="text-sm text-muted-foreground">Atmakaraka</p>
+                      <p className="text-xl font-bold text-primary">{state.result.atmakaraka}</p>
+                  </div>
+                   <div className="p-3 bg-secondary rounded-lg">
+                      <p className="text-sm text-muted-foreground">Ishta Devata</p>
+                      <p className="text-xl font-bold text-primary">{state.result.ishtaDevata}</p>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-muted-foreground whitespace-pre-wrap">{state.result.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

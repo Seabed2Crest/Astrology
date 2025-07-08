@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -73,16 +74,18 @@ export function DailyHoroscopeForm() {
         <SubmitButton />
       </form>
       {state.horoscope && (
-        <Card className="mt-6 bg-primary/5">
-            <CardHeader>
-                <CardTitle className="text-center text-primary font-headline">Your Personal Horoscope</CardTitle>
-            </CardHeader>
-          <CardContent className="p-6">
-            <p className="text-muted-foreground whitespace-pre-wrap">
-              {state.horoscope}
-            </p>
-          </CardContent>
-        </Card>
+        <ReportDisplay title="Personal Daily Horoscope" fileName="daily-horoscope-report">
+            <Card className="mt-6 bg-primary/5">
+                <CardHeader>
+                    <CardTitle className="text-center text-primary font-headline">Your Personal Horoscope</CardTitle>
+                </CardHeader>
+              <CardContent className="p-6">
+                <p className="text-muted-foreground whitespace-pre-wrap">
+                  {state.horoscope}
+                </p>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

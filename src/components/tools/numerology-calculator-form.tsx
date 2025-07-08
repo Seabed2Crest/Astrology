@@ -18,6 +18,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Calculator } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 
 function SubmitButton() {
@@ -59,18 +60,20 @@ function NameNumberForm() {
                 <SubmitButton />
             </form>
             {state.nameNumber !== undefined && state.name && (
-                <Card className="mt-6 bg-primary/5">
-                    <CardHeader>
-                        <CardTitle className="text-center text-primary font-headline">Name Number</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-6 text-center">
-                        <p className="text-sm font-medium text-muted-foreground">The Name Number for</p>
-                        <p className="text-lg font-semibold">{state.name}</p>
-                        <div className="my-4">
-                            <div className="text-7xl font-bold text-primary">{state.nameNumber}</div>
-                        </div>
-                    </CardContent>
-                </Card>
+                <ReportDisplay title={`Name Number for ${state.name}`} fileName="name-number-report">
+                    <Card className="mt-6 bg-primary/5">
+                        <CardHeader>
+                            <CardTitle className="text-center text-primary font-headline">Name Number</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-6 text-center">
+                            <p className="text-sm font-medium text-muted-foreground">The Name Number for</p>
+                            <p className="text-lg font-semibold">{state.name}</p>
+                            <div className="my-4">
+                                <div className="text-7xl font-bold text-primary">{state.nameNumber}</div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </ReportDisplay>
             )}
         </div>
     );
@@ -98,16 +101,18 @@ function DestinyNumberForm() {
                 <SubmitButton />
             </form>
             {state.destinyNumber !== undefined && (
-                <Card className="mt-6 bg-primary/5">
-                     <CardHeader>
-                        <CardTitle className="text-center text-primary font-headline">Destiny Number</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-6 text-center">
-                        <div className="my-4">
-                            <div className="text-7xl font-bold text-primary">{state.destinyNumber}</div>
-                        </div>
-                    </CardContent>
-                </Card>
+                <ReportDisplay title="Destiny Number Report" fileName="destiny-number-report">
+                    <Card className="mt-6 bg-primary/5">
+                         <CardHeader>
+                            <CardTitle className="text-center text-primary font-headline">Destiny Number</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-6 text-center">
+                            <div className="my-4">
+                                <div className="text-7xl font-bold text-primary">{state.destinyNumber}</div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </ReportDisplay>
             )}
         </div>
     );
@@ -136,16 +141,18 @@ function PsychicNumberForm() {
                 <SubmitButton />
             </form>
             {state.psychicNumber !== undefined && (
-                <Card className="mt-6 bg-primary/5">
-                     <CardHeader>
-                        <CardTitle className="text-center text-primary font-headline">Psychic Number (Moolank)</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-6 text-center">
-                        <div className="my-4">
-                            <div className="text-7xl font-bold text-primary">{state.psychicNumber}</div>
-                        </div>
-                    </CardContent>
-                </Card>
+                <ReportDisplay title="Psychic Number (Moolank) Report" fileName="psychic-number-report">
+                    <Card className="mt-6 bg-primary/5">
+                         <CardHeader>
+                            <CardTitle className="text-center text-primary font-headline">Psychic Number (Moolank)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-6 text-center">
+                            <div className="my-4">
+                                <div className="text-7xl font-bold text-primary">{state.psychicNumber}</div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </ReportDisplay>
             )}
         </div>
     );
