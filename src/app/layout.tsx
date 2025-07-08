@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Header } from '@/components/layout/header';
 import { Toaster } from '@/components/ui/toaster';
-import { Footer } from '@/components/layout/footer';
 import { CartProvider } from '@/hooks/use-cart';
+import { MainLayout } from '@/components/layout/main-layout';
 
 export const metadata: Metadata = {
   title: 'Seabed2Crest Astrotalk',
@@ -32,11 +31,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <CartProvider>
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          <MainLayout>{children}</MainLayout>
           <Toaster />
         </CartProvider>
       </body>

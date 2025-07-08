@@ -6,8 +6,8 @@ import { chatMessages as initialMessages } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Send, Phone, Video, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Send, Phone, Video, Loader2, ArrowLeft } from 'lucide-react';import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { chatWithAstrologer } from '@/ai/flows/chat-flow';
 import { RechargeModal } from './recharge-modal';
@@ -19,6 +19,7 @@ interface ChatWindowProps {
 export function ChatWindow({ astrologer }: ChatWindowProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [newMessage, setNewMessage] = useState('');
+    const router = useRouter();
   const [timer, setTimer] = useState(120); // Start from 2 minutes (120 seconds)
   const [isThinking, setIsThinking] = useState(false);
   const [showRechargeModal, setShowRechargeModal] = useState(false);
@@ -129,6 +130,9 @@ export function ChatWindow({ astrologer }: ChatWindowProps) {
         astrologer={astrologer}
       />
       <header className="flex items-center p-2 sm:p-4 border-b bg-header text-header-foreground">
+            <Button variant="ghost" size="icon" className="mr-2" onClick={() => router.back()}>
+          <ArrowLeft />
+        </Button>
         <Avatar className="h-10 w-10 sm:h-12 sm:w-12 mr-2 sm:mr-4 shrink-0">
           <AvatarImage src={astrologer.avatar} alt={astrologer.name} />
           <AvatarFallback>{astrologer.name.charAt(0)}</AvatarFallback>
