@@ -48,7 +48,6 @@ export function RechargeModal({ isOpen, onClose, astrologer }: RechargeModalProp
                     Minimum balance of 5 minutes (₹ {minimumBalance}) is required to continue chat with {astrologer.name}.
                 </p>
                 <button onClick={onClose} className="p-1 rounded-full hover:bg-muted -mt-2 -mr-2">
-                    <X className="h-4 w-4" />
                     <span className="sr-only">Close</span>
                 </button>
             </div>
