@@ -11,6 +11,7 @@ import { Loader2, Camera, Upload, Smile, RefreshCw } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Image from 'next/image';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton({ disabled }: { disabled: boolean }) {
   const { pending } = useFormStatus();
@@ -33,39 +34,41 @@ const initialState: FormState = { message: '' };
 
 function ResultDisplay({ result }: { result: FaceReadingOutput }) {
     return (
-        <div className="mt-8 space-y-6">
-            <Card className="bg-primary/5 border-primary/20">
-                <CardHeader>
-                    <CardTitle className="text-center text-primary font-headline">Overall Analysis</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.overallAnalysis}</p>
-                </CardContent>
-            </Card>
+        <ReportDisplay title="Face Reading Analysis" fileName="face-reading-report">
+            <div className="space-y-6">
+                <Card className="bg-primary/5 border-primary/20">
+                    <CardHeader>
+                        <CardTitle className="text-center text-primary font-headline">Overall Analysis</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.overallAnalysis}</p>
+                    </CardContent>
+                </Card>
 
-            <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="faceShape">
-                    <AccordionTrigger><strong>Face Shape:</strong> {result.faceShape.shape}</AccordionTrigger>
-                    <AccordionContent>{result.faceShape.interpretation}</AccordionContent>
-                </AccordionItem>
-                 <AccordionItem value="forehead">
-                    <AccordionTrigger><strong>Forehead:</strong> {result.forehead.type}</AccordionTrigger>
-                    <AccordionContent>{result.forehead.interpretation}</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="eyes">
-                    <AccordionTrigger><strong>Eyes:</strong> {result.eyes.type}</AccordionTrigger>
-                    <AccordionContent>{result.eyes.interpretation}</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="nose">
-                    <AccordionTrigger><strong>Nose:</strong> {result.nose.type}</AccordionTrigger>
-                    <AccordionContent>{result.nose.interpretation}</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="lips">
-                    <AccordionTrigger><strong>Lips:</strong> {result.lips.type}</AccordionTrigger>
-                    <AccordionContent>{result.lips.interpretation}</AccordionContent>
-                </AccordionItem>
-            </Accordion>
-        </div>
+                <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="faceShape">
+                        <AccordionTrigger><strong>Face Shape:</strong> {result.faceShape.shape}</AccordionTrigger>
+                        <AccordionContent>{result.faceShape.interpretation}</AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="forehead">
+                        <AccordionTrigger><strong>Forehead:</strong> {result.forehead.type}</AccordionTrigger>
+                        <AccordionContent>{result.forehead.interpretation}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="eyes">
+                        <AccordionTrigger><strong>Eyes:</strong> {result.eyes.type}</AccordionTrigger>
+                        <AccordionContent>{result.eyes.interpretation}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="nose">
+                        <AccordionTrigger><strong>Nose:</strong> {result.nose.type}</AccordionTrigger>
+                        <AccordionContent>{result.nose.interpretation}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="lips">
+                        <AccordionTrigger><strong>Lips:</strong> {result.lips.type}</AccordionTrigger>
+                        <AccordionContent>{result.lips.interpretation}</AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </div>
+        </ReportDisplay>
     );
 }
 

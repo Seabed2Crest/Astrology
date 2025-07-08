@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Calculator, CheckCircle, XCircle } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -59,37 +60,39 @@ export function LuckyVehicleNumberForm() {
         <SubmitButton />
       </form>
       {state.isLucky !== undefined && (
-        <Card className="mt-6 bg-secondary/30">
-          <CardHeader>
-            <CardTitle className="text-center text-primary font-headline">Your Result</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <div className="grid grid-cols-2 gap-4 text-center">
-                <div className="p-3 bg-card rounded-lg">
-                    <p className="text-sm text-muted-foreground">Your Psychic Number</p>
-                    <p className="text-2xl font-bold text-primary">{state.psychicNumber}</p>
+        <ReportDisplay title="Lucky Vehicle Number Report" fileName="lucky-vehicle-number-report">
+            <Card className="mt-6 bg-secondary/30">
+              <CardHeader>
+                <CardTitle className="text-center text-primary font-headline">Your Result</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="p-3 bg-card rounded-lg">
+                        <p className="text-sm text-muted-foreground">Your Psychic Number</p>
+                        <p className="text-2xl font-bold text-primary">{state.psychicNumber}</p>
+                    </div>
+                     <div className="p-3 bg-card rounded-lg">
+                        <p className="text-sm text-muted-foreground">Vehicle's Number</p>
+                        <p className="text-2xl font-bold text-primary">{state.vehicleSingleDigit}</p>
+                    </div>
                 </div>
-                 <div className="p-3 bg-card rounded-lg">
-                    <p className="text-sm text-muted-foreground">Vehicle's Number</p>
-                    <p className="text-2xl font-bold text-primary">{state.vehicleSingleDigit}</p>
-                </div>
-            </div>
 
-            <div className={`p-4 rounded-lg text-center ${state.isLucky ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
-                <div className={`flex items-center justify-center gap-2 font-bold ${state.isLucky ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
-                    {state.isLucky ? <CheckCircle className="h-6 w-6"/> : <XCircle className="h-6 w-6" />}
-                    <span className="text-lg">
-                        {state.isLucky ? 'This is a lucky number for you!' : 'This number may not be ideal.'}
-                    </span>
+                <div className={`p-4 rounded-lg text-center ${state.isLucky ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
+                    <div className={`flex items-center justify-center gap-2 font-bold ${state.isLucky ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                        {state.isLucky ? <CheckCircle className="h-6 w-6"/> : <XCircle className="h-6 w-6" />}
+                        <span className="text-lg">
+                            {state.isLucky ? 'This is a lucky number for you!' : 'This number may not be ideal.'}
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <div className="text-center p-3 bg-card rounded-lg">
-                <p className="text-sm text-muted-foreground">Based on your Psychic Number, your lucky numbers are:</p>
-                <p className="text-xl font-bold text-primary">{state.luckyNumbers?.join(', ')}</p>
-            </div>
-          </CardContent>
-        </Card>
+                <div className="text-center p-3 bg-card rounded-lg">
+                    <p className="text-sm text-muted-foreground">Based on your Psychic Number, your lucky numbers are:</p>
+                    <p className="text-xl font-bold text-primary">{state.luckyNumbers?.join(', ')}</p>
+                </div>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

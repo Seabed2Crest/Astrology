@@ -3,6 +3,7 @@
 import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { zodiacCompatibilityAction, type FormState } from '@/app/tools/zodiac-compatibility/actions';
+import type { ZodiacCompatibilityOutput } from '@/ai/flows/zodiac-compatibility';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -10,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Heart, Handshake, Briefcase } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ZodiacCompatibilityOutput } from '@/ai/flows/zodiac-compatibility';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 const zodiacSigns = [
   'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 
@@ -45,72 +46,74 @@ function ResultDisplay({ result, inputSigns }: { result: ZodiacCompatibilityOutp
     if (scorePercentage < 40) scoreColor = 'text-red-500';
 
     return (
-        <div className="mt-8 space-y-6">
-            <Card className="bg-primary/5 border-primary/20">
-                <CardHeader>
-                    <CardTitle className="text-center text-primary font-headline">
-                        {inputSigns.sign1} &amp; {inputSigns.sign2}
-                    </CardTitle>
-                    <CardDescription className="text-center">Overall Compatibility Score</CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                    <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
-                        <svg className="w-full h-full" viewBox="0 0 36 36">
-                            <path
-                                className="text-primary/10 stroke-current"
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                strokeWidth="3"
-                            />
-                            <path
-                                className={`${scoreColor} stroke-current`}
-                                strokeDasharray={`${scorePercentage}, 100`}
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeWidth="3"
-                                transform="rotate(-90 18 18)"
-                            />
-                        </svg>
-                        <div className={`absolute text-center ${scoreColor}`}>
-                            <span className="text-4xl font-bold">{result.score}</span>
-                            <span className="text-lg">/100</span>
+        <ReportDisplay title={`Compatibility Report: ${inputSigns.sign1} & ${inputSigns.sign2}`} fileName={`${inputSigns.sign1}-${inputSigns.sign2}-compatibility`}>
+            <div className="space-y-6">
+                <Card className="bg-primary/5 border-primary/20">
+                    <CardHeader>
+                        <CardTitle className="text-center text-primary font-headline">
+                            {inputSigns.sign1} &amp; {inputSigns.sign2}
+                        </CardTitle>
+                        <CardDescription className="text-center">Overall Compatibility Score</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
+                            <svg className="w-full h-full" viewBox="0 0 36 36">
+                                <path
+                                    className="text-primary/10 stroke-current"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    strokeWidth="3"
+                                />
+                                <path
+                                    className={`${scoreColor} stroke-current`}
+                                    strokeDasharray={`${scorePercentage}, 100`}
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeWidth="3"
+                                    transform="rotate(-90 18 18)"
+                                />
+                            </svg>
+                            <div className={`absolute text-center ${scoreColor}`}>
+                                <span className="text-4xl font-bold">{result.score}</span>
+                                <span className="text-lg">/100</span>
+                            </div>
                         </div>
-                    </div>
-                     <p className="text-muted-foreground mt-4 text-sm max-w-md mx-auto">{result.summary}</p>
-                </CardContent>
-            </Card>
+                         <p className="text-muted-foreground mt-4 text-sm max-w-md mx-auto">{result.summary}</p>
+                    </CardContent>
+                </Card>
 
-            <Accordion type="single" collapsible defaultValue="love" className="w-full">
-                <AccordionItem value="love">
-                    <AccordionTrigger>
-                        <div className="flex items-center gap-3">
-                            <Heart className="text-red-500"/>
-                            <span className="font-semibold text-lg">Love & Romance</span>
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground p-2">{result.love}</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="friendship">
-                    <AccordionTrigger>
-                        <div className="flex items-center gap-3">
-                            <Handshake className="text-blue-500"/>
-                             <span className="font-semibold text-lg">Friendship</span>
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground p-2">{result.friendship}</AccordionContent>
-                </AccordionItem>
-                 <AccordionItem value="communication">
-                    <AccordionTrigger>
-                        <div className="flex items-center gap-3">
-                            <Briefcase className="text-gray-500"/>
-                             <span className="font-semibold text-lg">Communication & Work</span>
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground p-2">{result.communication}</AccordionContent>
-                </AccordionItem>
-            </Accordion>
-        </div>
+                <Accordion type="single" collapsible defaultValue="love" className="w-full">
+                    <AccordionItem value="love">
+                        <AccordionTrigger>
+                            <div className="flex items-center gap-3">
+                                <Heart className="text-red-500"/>
+                                <span className="font-semibold text-lg">Love & Romance</span>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground p-2">{result.love}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="friendship">
+                        <AccordionTrigger>
+                            <div className="flex items-center gap-3">
+                                <Handshake className="text-blue-500"/>
+                                 <span className="font-semibold text-lg">Friendship</span>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground p-2">{result.friendship}</AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="communication">
+                        <AccordionTrigger>
+                            <div className="flex items-center gap-3">
+                                <Briefcase className="text-gray-500"/>
+                                 <span className="font-semibold text-lg">Communication & Work</span>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground p-2">{result.communication}</AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </div>
+        </ReportDisplay>
     )
 }
 

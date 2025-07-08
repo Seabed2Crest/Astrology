@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Star } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -70,20 +71,22 @@ export function NakshatraFinderForm() {
         <SubmitButton />
       </form>
       {state.result && (
-        <Card className="mt-6 bg-primary/5">
-          <CardHeader>
-            <CardTitle className="text-center text-primary font-headline">Your Birth Star</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <div className="text-center">
-                <p className="text-4xl font-bold">{state.result.nakshatra}</p>
-                <p className="text-lg font-medium text-muted-foreground mt-1">Pada: {state.result.pada}</p>
-            </div>
-            <div>
-                <p className="text-muted-foreground whitespace-pre-wrap">{state.result.description}</p>
-            </div>
-          </CardContent>
-        </Card>
+        <ReportDisplay title="Nakshatra (Birth Star) Report" fileName="nakshatra-report">
+            <Card className="mt-6 bg-primary/5">
+              <CardHeader>
+                <CardTitle className="text-center text-primary font-headline">Your Birth Star</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="text-center">
+                    <p className="text-4xl font-bold">{state.result.nakshatra}</p>
+                    <p className="text-lg font-medium text-muted-foreground mt-1">Pada: {state.result.pada}</p>
+                </div>
+                <div>
+                    <p className="text-muted-foreground whitespace-pre-wrap">{state.result.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+        </ReportDisplay>
       )}
     </div>
   );

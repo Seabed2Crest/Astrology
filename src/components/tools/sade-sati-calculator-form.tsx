@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Scale, ListOrdered, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -35,95 +36,97 @@ const initialState: FormState = {
 
 function ResultDisplay({ result }: { result: SadeSatiOutput }) {
     return (
-        <div className="mt-6 space-y-6">
-            <div className={`p-4 rounded-lg text-center ${result.isCurrentlyInSadeSati ? 'bg-red-100 dark:bg-red-900/30' : 'bg-green-100 dark:bg-green-900/30'}`}>
-                <div className={`flex items-center justify-center gap-2 font-bold ${result.isCurrentlyInSadeSati ? 'text-red-700 dark:text-red-300' : 'text-green-700 dark:text-green-300'}`}>
-                    {result.isCurrentlyInSadeSati ? <ShieldAlert className="h-6 w-6"/> : <ShieldCheck className="h-6 w-6" />}
-                    <span className="text-lg">
-                        {result.isCurrentlyInSadeSati ? 'You are currently in Sade Sati' : 'You are not in Sade Sati'}
-                    </span>
+        <ReportDisplay title="Sade Sati Analysis" fileName="sade-sati-report">
+            <div className="space-y-6">
+                <div className={`p-4 rounded-lg text-center ${result.isCurrentlyInSadeSati ? 'bg-red-100 dark:bg-red-900/30' : 'bg-green-100 dark:bg-green-900/30'}`}>
+                    <div className={`flex items-center justify-center gap-2 font-bold ${result.isCurrentlyInSadeSati ? 'text-red-700 dark:text-red-300' : 'text-green-700 dark:text-green-300'}`}>
+                        {result.isCurrentlyInSadeSati ? <ShieldAlert className="h-6 w-6"/> : <ShieldCheck className="h-6 w-6" />}
+                        <span className="text-lg">
+                            {result.isCurrentlyInSadeSati ? 'You are currently in Sade Sati' : 'You are not in Sade Sati'}
+                        </span>
+                    </div>
+                    {result.isCurrentlyInSadeSati && result.currentSadeSatiDetails && (
+                        <p className="text-sm mt-1">{result.currentSadeSatiDetails.startDate} - {result.currentSadeSatiDetails.endDate}</p>
+                    )}
                 </div>
-                {result.isCurrentlyInSadeSati && result.currentSadeSatiDetails && (
-                    <p className="text-sm mt-1">{result.currentSadeSatiDetails.startDate} - {result.currentSadeSatiDetails.endDate}</p>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Analysis for Moon Sign: {result.moonSign}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.description}</p>
+                    </CardContent>
+                </Card>
+
+                {result.pastSadeSatiPeriods.length > 0 && (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Past Sade Sati Periods</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Start Date</TableHead>
+                                        <TableHead>End Date</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {result.pastSadeSatiPeriods.map((p, i) => (
+                                        <TableRow key={`past-${i}`}>
+                                            <TableCell>{p.startDate}</TableCell>
+                                            <TableCell>{p.endDate}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                )}
+
+                {result.futureSadeSatiPeriods.length > 0 && (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Future Sade Sati Periods</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Start Date</TableHead>
+                                        <TableHead>End Date</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {result.futureSadeSatiPeriods.map((p, i) => (
+                                        <TableRow key={`future-${i}`}>
+                                            <TableCell>{p.startDate}</TableCell>
+                                            <TableCell>{p.endDate}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                )}
+
+                {result.remedies.length > 0 && (
+                     <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><ListOrdered/> Suggested Remedies</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                                {result.remedies.map((remedy, index) => (
+                                    <li key={index}>{remedy}</li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
                 )}
             </div>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Analysis for Moon Sign: {result.moonSign}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.description}</p>
-                </CardContent>
-            </Card>
-
-            {result.pastSadeSatiPeriods.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Past Sade Sati Periods</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Start Date</TableHead>
-                                    <TableHead>End Date</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {result.pastSadeSatiPeriods.map((p, i) => (
-                                    <TableRow key={`past-${i}`}>
-                                        <TableCell>{p.startDate}</TableCell>
-                                        <TableCell>{p.endDate}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                </Card>
-            )}
-
-            {result.futureSadeSatiPeriods.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Future Sade Sati Periods</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Start Date</TableHead>
-                                    <TableHead>End Date</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {result.futureSadeSatiPeriods.map((p, i) => (
-                                    <TableRow key={`future-${i}`}>
-                                        <TableCell>{p.startDate}</TableCell>
-                                        <TableCell>{p.endDate}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                </Card>
-            )}
-
-            {result.remedies.length > 0 && (
-                 <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2"><ListOrdered/> Suggested Remedies</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
-                            {result.remedies.map((remedy, index) => (
-                                <li key={index}>{remedy}</li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
-            )}
-        </div>
+        </ReportDisplay>
     );
 }
 

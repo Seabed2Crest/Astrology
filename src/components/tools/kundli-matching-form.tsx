@@ -2,16 +2,16 @@
 
 import { useActionState, useEffect, useRef } from 'react';
 import { useFormStatus } from 'react-dom';
+import { kundliMatchingAction, type FormState } from '@/app/tools/kundli-matching/actions';
+import type { KundliMatchingOutput } from '@/ai/flows/kundli-matching';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, HeartHandshake, ShieldAlert, ShieldCheck } from 'lucide-react';
-import { FormState, kundliMatchingAction } from '@/app/kundli-matching/actions';
-import { KundliMatchingOutput } from '@/ai/flows/kundli-matching';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -38,88 +38,90 @@ function ResultDisplay({ result }: { result: KundliMatchingOutput }) {
     const scorePercentage = (result.totalScore / 36) * 100;
 
     return (
-        <div className="mt-8 space-y-6">
-            <Card className="bg-primary/5 border-primary/20">
-                <CardHeader>
-                    <CardTitle className="text-center text-primary font-headline">Compatibility Score</CardTitle>
-                    <CardDescription className="text-center">{result.compatibilityMessage}</CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                    <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
-                        <svg className="w-full h-full" viewBox="0 0 36 36">
-                            <path
-                                className="text-primary/10 stroke-current"
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                strokeWidth="3"
-                            />
-                            <path
-                                className="text-primary stroke-current"
-                                strokeDasharray={`${scorePercentage}, 100`}
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeWidth="3"
-                                transform="rotate(-90 18 18)"
-                            />
-                        </svg>
-                        <div className="absolute text-center">
-                            <span className="text-4xl font-bold text-primary">{result.totalScore}</span>
-                            <span className="text-lg text-muted-foreground">/ 36</span>
+        <ReportDisplay title="Kundli Matching Report" fileName="kundli-matching-report">
+            <div className="space-y-6">
+                <Card className="bg-primary/5 border-primary/20">
+                    <CardHeader>
+                        <CardTitle className="text-center text-primary font-headline">Compatibility Score</CardTitle>
+                        <CardDescription className="text-center">{result.compatibilityMessage}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
+                            <svg className="w-full h-full" viewBox="0 0 36 36">
+                                <path
+                                    className="text-primary/10 stroke-current"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    strokeWidth="3"
+                                />
+                                <path
+                                    className="text-primary stroke-current"
+                                    strokeDasharray={`${scorePercentage}, 100`}
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeWidth="3"
+                                    transform="rotate(-90 18 18)"
+                                />
+                            </svg>
+                            <div className="absolute text-center">
+                                <span className="text-4xl font-bold text-primary">{result.totalScore}</span>
+                                <span className="text-lg text-muted-foreground">/ 36</span>
+                            </div>
                         </div>
-                    </div>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Ashtakoota Milan Details</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Koota</TableHead>
-                                <TableHead>Boy</TableHead>
-                                <TableHead>Girl</TableHead>
-                                <TableHead className="text-right">Score</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {result.kootaScores.map((k) => (
-                                <TableRow key={k.name}>
-                                    <TableCell className="font-medium">{k.name}</TableCell>
-                                    <TableCell>{k.boyKoota}</TableCell>
-                                    <TableCell>{k.girlKoota}</TableCell>
-                                    <TableCell className="text-right font-semibold">{k.receivedPoints} / {k.totalPoints}</TableCell>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Ashtakoota Milan Details</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Koota</TableHead>
+                                    <TableHead>Boy</TableHead>
+                                    <TableHead>Girl</TableHead>
+                                    <TableHead className="text-right">Score</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
+                            </TableHeader>
+                            <TableBody>
+                                {result.kootaScores.map((k) => (
+                                    <TableRow key={k.name}>
+                                        <TableCell className="font-medium">{k.name}</TableCell>
+                                        <TableCell>{k.boyKoota}</TableCell>
+                                        <TableCell>{k.girlKoota}</TableCell>
+                                        <TableCell className="text-right font-semibold">{k.receivedPoints} / {k.totalPoints}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        {result.mangalDoshaAnalysis.isCancelled || (!result.mangalDoshaAnalysis.boyHasDosha && !result.mangalDoshaAnalysis.girlHasDosha) ? <ShieldCheck className="text-green-500" /> : <ShieldAlert className="text-red-500" />}
-                        Mangal Dosha Analysis
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.mangalDoshaAnalysis.conclusion}</p>
-                </CardContent>
-            </Card>
-            
-            <Card>
-                <CardHeader>
-                    <CardTitle>Final Conclusion</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.conclusion}</p>
-                </CardContent>
-            </Card>
-        </div>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            {result.mangalDoshaAnalysis.isCancelled || (!result.mangalDoshaAnalysis.boyHasDosha && !result.mangalDoshaAnalysis.girlHasDosha) ? <ShieldCheck className="text-green-500" /> : <ShieldAlert className="text-red-500" />}
+                            Mangal Dosha Analysis
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.mangalDoshaAnalysis.conclusion}</p>
+                    </CardContent>
+                </Card>
+                
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Final Conclusion</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.conclusion}</p>
+                    </CardContent>
+                </Card>
+            </div>
+        </ReportDisplay>
     )
 }
 

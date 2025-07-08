@@ -1,4 +1,4 @@
-# **App Name**: Cosmic Connect
+# **App Name**: Seabed2Crest AstroTalk
 
 ## Core Features:
 

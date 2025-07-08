@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { palmReadingAction, type FormState } from '@/app/tools/palm-reading/actions';
+import type { PalmReadingOutput } from '@/ai/flows/palm-reading-flow';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
@@ -10,7 +11,7 @@ import { Loader2, Camera, Upload, Hand, RefreshCw } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Image from 'next/image';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { PalmReadingOutput } from '@/ai/flows/palm-reading-flow';
+import { ReportDisplay } from '@/components/tools/report-display';
 
 function SubmitButton({ disabled }: { disabled: boolean }) {
   const { pending } = useFormStatus();
@@ -33,35 +34,37 @@ const initialState: FormState = { message: '' };
 
 function ResultDisplay({ result }: { result: PalmReadingOutput }) {
     return (
-        <div className="mt-8 space-y-6">
-            <Card className="bg-primary/5 border-primary/20">
-                <CardHeader>
-                    <CardTitle className="text-center text-primary font-headline">Overall Analysis</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground whitespace-pre-wrap">{result.overallAnalysis}</p>
-                </CardContent>
-            </Card>
+        <ReportDisplay title="Palm Reading Analysis" fileName="palm-reading-report">
+            <div className="space-y-6">
+                <Card className="bg-primary/5 border-primary/20">
+                    <CardHeader>
+                        <CardTitle className="text-center text-primary font-headline">Overall Analysis</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{result.overallAnalysis}</p>
+                    </CardContent>
+                </Card>
 
-            <Accordion type="single" collapsible className="w-full" defaultValue="lifeLine">
-                <AccordionItem value="lifeLine">
-                    <AccordionTrigger><strong>Life Line</strong></AccordionTrigger>
-                    <AccordionContent>{result.lifeLine.interpretation}</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="headLine">
-                    <AccordionTrigger><strong>Head Line</strong></AccordionTrigger>
-                    <AccordionContent>{result.headLine.interpretation}</AccordionContent>
-                </AccordionItem>
-                 <AccordionItem value="heartLine">
-                    <AccordionTrigger><strong>Heart Line</strong></AccordionTrigger>
-                    <AccordionContent>{result.heartLine.interpretation}</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="fateLine">
-                    <AccordionTrigger><strong>Fate Line</strong></AccordionTrigger>
-                    <AccordionContent>{result.fateLine.interpretation}</AccordionContent>
-                </AccordionItem>
-            </Accordion>
-        </div>
+                <Accordion type="single" collapsible className="w-full" defaultValue="lifeLine">
+                    <AccordionItem value="lifeLine">
+                        <AccordionTrigger><strong>Life Line</strong></AccordionTrigger>
+                        <AccordionContent>{result.lifeLine.interpretation}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="headLine">
+                        <AccordionTrigger><strong>Head Line</strong></AccordionTrigger>
+                        <AccordionContent>{result.headLine.interpretation}</AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="heartLine">
+                        <AccordionTrigger><strong>Heart Line</strong></AccordionTrigger>
+                        <AccordionContent>{result.heartLine.interpretation}</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="fateLine">
+                        <AccordionTrigger><strong>Fate Line</strong></AccordionTrigger>
+                        <AccordionContent>{result.fateLine.interpretation}</AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </div>
+        </ReportDisplay>
     );
 }
 
